@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8000/api",
+  baseURL: "https://event-management-dashboard-neix.onrender.com/api",
 });
 
 // Add token to every request
