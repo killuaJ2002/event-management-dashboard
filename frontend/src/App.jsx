@@ -8,6 +8,7 @@ import EventListPage from "./pages/EventListPage";
 import CreateEventPage from "./pages/CreateEventPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import moment from "moment";
 
 export default function App() {
   return (
