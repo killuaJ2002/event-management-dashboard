@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import api from "../services/api";
 import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -11,9 +12,14 @@ export default function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await api.post("/auth/login", { email, password });
-    login(res.data.user, res.data.token);
-    navigate("/");
+    try {
+      const res = await api.post("/auth/login", { email, password });
+      login(res.data.user, res.data.token);
+      navigate("/");
+    } catch (err) {
+      console.error(err.response?.data || err.message);
+      toast.error(err.response?.data?.message || "Login failed");
+    }
   };
 
   return (
@@ -22,7 +28,9 @@ export default function LoginPage() {
         onSubmit={handleSubmit}
         className="max-w-md mx-auto bg-white p-8 rounded-xl shadow-lg"
       >
-        <h2 className="text-2xl font-semibold mb-6 text-center text-gray-800">Login</h2>
+        <h2 className="text-2xl font-semibold mb-6 text-center text-gray-800">
+          Login
+        </h2>
 
         <input
           placeholder="Email"
