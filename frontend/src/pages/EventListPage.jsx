@@ -13,7 +13,10 @@ export default function EventListPage() {
 
   useEffect(() => {
     fetchEvents();
-    const socket = io("http://localhost:8000");
+
+    // Connect to live Render backend
+    const socket = io("https://event-management-dashboard-neix.onrender.com");
+
     socket.on("registrationUpdate", (data) => {
       setEvents((prev) =>
         prev.map((ev) =>
@@ -23,6 +26,7 @@ export default function EventListPage() {
         )
       );
     });
+
     return () => socket.disconnect();
   }, []);
 
